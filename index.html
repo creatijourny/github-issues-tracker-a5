@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Issue Tracker</title>
+    <!-- Font Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Tailwind & dausy UI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <!-- Font awesome -->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-[#F8FAFC]">
+    <!-- Navbar section -->
+    <section id="navbar">
+        <div class="navbar bg-base-100 shadow-sm flex justify-between px-10 mb-5">
+            <div class="flex gap-2 items-center">
+                <img class="w-11" src="./assets/github-logo.png" alt="">
+                <h3 class="text-2xl font-bold text-[#1F2937]">GitHub Issues Tracker</h3>
+            </div>
+            <div class="flex gap-2">
+                <label class="input">
+                    <svg class="h-[1.5em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                            stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" required placeholder="Search Issues" />
+                </label>
+                <button class="btn btn-primary">+ New Issue</button>
+
+            </div>
+        </div>
+    </section>
+    <main class="">
+        <header class="">
+            <div class="w-[80%] mx-auto flex flex-wrap gap-3 px-3 bg-[#FFFFFF] mt-3 mb-3">
+                <button onclick="switchTab('all')" id="tab-all" class="rounded border-2 px-5 py-1.5">All</button>
+                <button onclick="switchTab('open')" id="tab-interview"
+                    class="rounded border-2 px-5 py-1.5">Open</button>
+                <button onclick="switchTab('closed')" id="tab-rejected"
+                    class="rounded border-2 px-5 py-1.5">Closed</button>
+            </div>
+            <div class="w-[80%] mx-auto flex justify-between bg-[#FFFFFF] px-3 mb-3">
+                <div class="flex gap-2 items-center">
+                    <div>
+                        <img class="w-7" src="./assets/Aperture.png" alt="">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold"><span>50</span> Issues</h3>
+                        <p class="text-[#64748B] text-sm">Track and manage your project issues</p>
+                    </div>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <p class="text-sm"><i class="fa-solid fa-circle text-green-500 text-sm"></i> Open</p>
+                    <p class="text-sm"><i class="fa-solid fa-circle text-[#A855F7] text-sm"></i> Closed</p>
+                </div>
+
+                
+            </div>
+        </header>
+    </main>
+
+</body>
+
+</html>
