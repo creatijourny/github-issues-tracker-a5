@@ -39,7 +39,7 @@
                     </svg>
                     <input type="search" required placeholder="Search Issues" />
                 </label>
-                <button class="btn btn-primary">+ New Issue</button>
+                <button class="btn btn-primary">Search</button>
 
             </div>
         </div>
@@ -48,8 +48,7 @@
         <header class="">
             <div class="w-[80%] mx-auto flex flex-wrap gap-3 px-3 bg-[#FFFFFF] mt-3 mb-3">
                 <button onclick="switchBtn('all')" id="btn-all" class="rounded border-2 px-5 py-1.5">All</button>
-                <button onclick="switchBtn('open')" id="btn-open"
-                    class="rounded border-2 px-5 py-1.5">Open</button>
+                <button onclick="switchBtn('open')" id="btn-open" class="rounded border-2 px-5 py-1.5">Open</button>
                 <button onclick="switchBtn('closed')" id="btn-closed"
                     class="rounded border-2 px-5 py-1.5">Closed</button>
             </div>
@@ -59,7 +58,7 @@
                         <img class="w-7" src="./assets/Aperture.png" alt="">
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold"><span>50</span> Issues</h3>
+                        <h3 class="text-xl font-bold"><span id="count-issues">0</span> Issues</h3>
                         <p class="text-[#64748B] text-sm">Track and manage your project issues</p>
                     </div>
                 </div>
@@ -73,12 +72,31 @@
         </header>
         <!-- card section -->
         <div id="card-container" class="grid grid-cols-1 gap-5 w-[80%] mx-auto sm:grid-cols-4">
-           
-            
-            
+
+
+        </div>
+
+        <!-- Loading spinner -->
+        <div id="loading-spinner" class="h-[70vh] flex hidden justify-center items-center">
+            <span class="loading loading-spinner loading-lg"></span>
         </div>
 
     </main>
+    <!-- Modal -->
+     <!-- Open the modal using ID.showModal() method -->
+<!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Hello!</h3>
+    <p class="py-4">Press ESC key or click the button below to close</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
 
     <script src="script.js"></script>
 </body>

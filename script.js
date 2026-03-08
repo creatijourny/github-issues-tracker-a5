@@ -18,11 +18,27 @@ function switchBtn(btn){
     }
 }
 switchBtn(currentBtn);
+
+
+
 const cardContainer = document.getElementById("card-container");
+const loadingSpinner = document.getElementById("loading-spinner");
+const issueDetailModal = document.getElementById("issue-detail-modal");
+
+function showLoading() {
+    loadingSpinner.classList.remove("hidden");
+    loadingSpinner.classList.add("flex");
+    cardContainer.innerHTML = "";
+}
+function hideLoading() {
+    loadingSpinner.classList.add("hidden");
+}
 
 async function loadIssueCards () {
+    showLoading();
     const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
     const data = await res.json();
+    hideLoading();
     displayCards(data.data);
 }
 
@@ -43,7 +59,7 @@ async function loadIssueCards () {
 
 function displayCards (issues) {
    issues.forEach((issue) => {
-    console.log(issue);
+    // console.log(issue);
     const card = document.createElement("div");
     card.className = "card bg-base-100 w-full shadow-sm border-t-4"
     if(issue.status == "open"){
@@ -52,7 +68,7 @@ function displayCards (issues) {
         card.classList.add("border-t-[#A855F7]");
     }
     card.innerHTML = `
-        <div class="card-body">
+        <div class="card-body cursor-pointer" onclick="my_modal_5.showModal()">
                     <div class="flex justify-between">
                         <img src="./assets/Open-Status.png" alt="">
                         <div class="badge badge-secondary rounded-full align-top text-[#EF4444] bg-[#EF444420]">${issue.priority}</div>
@@ -71,5 +87,16 @@ function displayCards (issues) {
     
        cardContainer.appendChild(card);
    })
+   
+
+   
+   let totalIssues = document.getElementById("count-issues");
+   function calculateCount(){
+       totalIssues.innerText = cardContainer.children.length;
+   }
+   calculateCount();
+   
 }
+
 loadIssueCards();
+
