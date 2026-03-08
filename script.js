@@ -23,7 +23,7 @@ switchBtn(currentBtn);
 
 const cardContainer = document.getElementById("card-container");
 const loadingSpinner = document.getElementById("loading-spinner");
-const issueDetailModal = document.getElementById("issue-detail-modal");
+
 
 function showLoading() {
     loadingSpinner.classList.remove("hidden");
@@ -41,6 +41,7 @@ async function loadIssueCards () {
     hideLoading();
     displayCards(data.data);
 }
+
 
 // {
 //     "id": 48,
@@ -68,7 +69,7 @@ function displayCards (issues) {
         card.classList.add("border-t-[#A855F7]");
     }
     card.innerHTML = `
-        <div class="card-body cursor-pointer" onclick="my_modal_5.showModal()">
+        <div class="card-body cursor-pointer onclick="">
                     <div class="flex justify-between">
                         <img src="./assets/Open-Status.png" alt="">
                         <div class="badge badge-secondary rounded-full align-top text-[#EF4444] bg-[#EF444420]">${issue.priority}</div>
@@ -97,6 +98,8 @@ function displayCards (issues) {
    calculateCount();
    
 }
+
+
 
 loadIssueCards();
 
