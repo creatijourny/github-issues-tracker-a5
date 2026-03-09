@@ -47,6 +47,7 @@ function displayCards (issues) {
     allContainer.innerHTML = "";
    issues.forEach((issue) => {  
     const card = document.createElement("div");
+    
     card.className = "card bg-base-100 w-full shadow-sm border-t-4"
     
     if(issue.status == "open"){
@@ -56,7 +57,7 @@ function displayCards (issues) {
     }
 
     card.innerHTML = `
-        <div class="card-body cursor-pointer onclick="">
+        <div id="single-issue" onclick="my_modal_5.showModal()" class="card-body cursor-pointer">
                     <div class="flex justify-between">
                         <img src="./assets/Open-Status.png" alt="">
                         <div class="badge badge-secondary rounded-full align-top text-[#EF4444] bg-[#EF444420]">${issue.priority}</div>
@@ -67,13 +68,12 @@ function displayCards (issues) {
                         <div class="badge badge-outline rounded-full text-[#EF4444] bg-[#EF444420]"><i class="fa-solid fa-bug"></i> BUG</div>
                         <div class="badge badge-outline rounded-full text-[#D97706] bg-[#D9770620]"><i class="fa-solid fa-life-ring"></i> HELP WANTED</div>
                     </div>
-                    <hr class="text-[#E4E4E7] w-full">
-                    <p class="text-[#64748B]">${issue.author}</p>
+                    <hr class="text-[#E4E4E7] w-full">                    
+                    <p class="text-[#64748B]">${issue.author}</p>                
                     <p class="text-[#64748B]">${issue.createdAt}</p>
                 </div>
     `;
-     allContainer.appendChild(card);
-            
+     allContainer.appendChild(card);            
    })
 
    function filteredIssues(mode) {
@@ -110,7 +110,48 @@ function displayCards (issues) {
    }
    calculateCount();
    
+   }
+
+    loadIssueCards();
+
+                // Search functionality (incomplete)
+
+    document.getElementById("btn-search").addEventListener("click", () => {
+        const input = document.getElementById("input-search");
+        const searchValue = input.value.trim().toLowerCase();
+        // console.log(searchValue);
+        
+        fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications")
+        .then((res) => res.json())
+        .then((data) => {
+                const allWords = data.data.title[i];
+            })
+            // console.log(allWords);
+            
+            const filterWords = allWords.filter((word) => data.title.word.toLowerCase().includes(searchValue));
+            console.log(filterWords);
+        });
+    
+
+//    Modal (incomplete)
+
+async function openIssueModal(id) {
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+    const data = await res.json();
+    showIssueModal(data.data);    
+    }
+    
+    function showIssueModal(issue){
+        const singleCard = document.getElementById("single-card");
+singleCard.innerText = "View Details";
+
+singleCard.addEventListener("click", () => {
+   openIssueModal(issue._id);
+   document.getElementById("modal-title").innerText = issue.title;
+   document.getElementById("modal-description").innerText = issue.description;
+   document.getElementById("modal-status").innerText = issue.status;
+
+   document.getElementById("my_modal_5").showModal();
+});
+   
 }
-
-loadIssueCards();
-
