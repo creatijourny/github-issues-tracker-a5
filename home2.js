@@ -3,6 +3,7 @@ let currentBtn = "all";
 const btnActive = ["bg-[#4A00FF]", "border-none", "text-white"];
 const btnInActive = ["bg-[#E4E4E7]", "border-none", "text-[#1F2937]"];
 
+
 function switchBtn(btn){
     const buttons = ["all", "open", "closed"];
 
@@ -19,11 +20,15 @@ function switchBtn(btn){
 }
 switchBtn(currentBtn);
 
+
+
 const allContainer = document.getElementById("card-container");
 const openContainer = document.getElementById("open-container");
 const closedContainer = document.getElementById("closed-container");
 
+
 const loadingSpinner = document.getElementById("loading-spinner");
+
 
 function showLoading() {
     loadingSpinner.classList.remove("hidden");
@@ -43,12 +48,29 @@ async function loadIssueCards () {
     displayCards(allIssues);
 }
 
+
+// {
+//     "id": 48,
+//     "title": "Browser console shows warnings",
+//     "description": "Multiple deprecation warnings appearing in browser console. Need to update deprecated code.",
+//     "status": "open",
+//     "labels": [
+//         "bug"
+//     ],
+//     "priority": "low",
+//     "author": "console_carol",
+//     "assignee": "",
+//     "createdAt": "2024-02-09T14:20:00Z",
+//     "updatedAt": "2024-02-09T14:20:00Z"
+// }
+
 function displayCards (issues) {
     allContainer.innerHTML = "";
    issues.forEach((issue) => {  
     const card = document.createElement("div");
     card.className = "card bg-base-100 w-full shadow-sm border-t-4"
     
+
     if(issue.status == "open"){
         card.classList.add("border-t-[#00A96E]");
     }else if(issue.status == "closed"){
@@ -75,42 +97,44 @@ function displayCards (issues) {
      allContainer.appendChild(card);
             
    })
-
-   function filteredIssues(mode) {
+   
+   function filterIssues(mode){
     if(mode === "all"){
         return allIssues;
     }
-        return allIssues.filter(issue => issue.status === mode);   
-   }
 
-   document.getElementById("btn-all").addEventListener('click', 
-    function(){
+    return allIssues.filter(issue => issue.status === mode);
+}
+
+document.getElementById("btn-all").addEventListener("click", () => {
     currentBtn = "all";
     switchBtn("all");
-    displayCards(filteredIssues("all"));
-   })
+    displayCards(filterIssues("all"));
+});
 
-   document.getElementById("btn-open").addEventListener('click', 
-    function(){
+document.getElementById("btn-open").addEventListener("click", () => {
     currentBtn = "open";
     switchBtn("open");
-    displayCards(filteredIssues("open"));
-   })
+    displayCards(filterIssues("open"));
+});
 
-   document.getElementById("btn-closed").addEventListener('click', 
-    function(){
+document.getElementById("btn-closed").addEventListener("click", () => {
     currentBtn = "closed";
     switchBtn("closed");
-    displayCards(filteredIssues("closed"));
-   })
-         
+    displayCards(filterIssues("closed"));
+});
+   
+
+   
    let totalIssues = document.getElementById("count-issues");
    function calculateCount(){
-   totalIssues.innerText = issues.length;
+       totalIssues.innerText = allContainer.children.length;
    }
    calculateCount();
    
 }
+
+
 
 loadIssueCards();
 
