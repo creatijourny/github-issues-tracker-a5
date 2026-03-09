@@ -8,10 +8,10 @@ document.getElementById('btn-login')
 
     if(userName == "admin" && password == "admin123"){
         // alert("login success");
-
-        window.location.assign("/home.html");
+        localStorage.setItem("loggedIn", "true");
+        window.location.href = "home.html";
     } else{
-        alert('login failed');
+        alert("Invalid username or password");
         return;
     }
     })
