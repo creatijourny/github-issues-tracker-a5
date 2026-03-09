@@ -43,6 +43,46 @@ async function loadIssueCards () {
     displayCards(allIssues);
 }
 
+const loadIssueDetails = async(id) =>{
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+    const res = await fetch(url);
+    const details = await res.json();
+    displayIssueDetails(details.data);
+}
+const displayIssueDetails = (issue) => {
+    console.log(issue);
+    const detailsBox = document.getElementById("details-container");
+    detailsBox.innerHTML = `
+    <div>
+                    <h3 class="text-3xl font-bold text-[#1F2937]">${issue.title}</h3>
+                </div>
+                <div class="flex justify-start gap-2">
+                    <div class="badge badge-outline rounded-full text-[#FFFFFF] bg-[#00A96E]">${issue.status}</div>
+                    <p>Opened by ${issue.author}</p>
+                </div>
+                <div class="card-actions justify-start">
+                    <div class="badge badge-outline rounded-full text-[#EF4444] bg-[#EF444420]"><i
+                            class="fa-solid fa-bug"></i> BUG</div>
+                    <div class="badge badge-outline rounded-full text-[#D97706] bg-[#D9770620]"><i
+                            class="fa-solid fa-life-ring"></i> HELP WANTED</div>
+                </div>
+                <p class="line-clamp-2">${issue.description}</p>
+                <div class="flex justify-start">
+                    <div class="w-full">
+                        <p>Assignee:</p>
+                        <h4>${issue.author}</h4>
+                    </div>
+                    <div class="w-full">
+                        <p>Priority:</p>
+                        <div class="badge badge-secondary rounded-full py-1 px-2 align-top text-[#FFFFFF] bg-[#EF4444]">${issue.priority}</div>
+
+                    </div>
+                </div>
+                `;
+    document.getElementById("issue_modal").showModal();
+}
+
+
 function displayCards (issues) {
     allContainer.innerHTML = "";
    issues.forEach((issue) => {  
@@ -57,7 +97,7 @@ function displayCards (issues) {
     }
 
     card.innerHTML = `
-        <div id="single-issue" onclick="my_modal_5.showModal()" class="card-body cursor-pointer">
+        <div id="single-issue" onclick="loadIssueDetails(${issue.id})" class="card-body cursor-pointer">
                     <div class="flex justify-between">
                         <img src="./assets/Open-Status.png" alt="">
                         <div class="badge badge-secondary rounded-full align-top text-[#EF4444] bg-[#EF444420]">${issue.priority}</div>
@@ -116,42 +156,19 @@ function displayCards (issues) {
 
                 // Search functionality (incomplete)
 
-    document.getElementById("btn-search").addEventListener("click", () => {
-        const input = document.getElementById("input-search");
-        const searchValue = input.value.trim().toLowerCase();
-        // console.log(searchValue);
+    // document.getElementById("btn-search").addEventListener("click", () => {
+    //     const input = document.getElementById("input-search");
+    //     const searchValue = input.value.trim().toLowerCase();
+    //     // console.log(searchValue);
         
-        fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications")
-        .then((res) => res.json())
-        .then((data) => {
-                const allWords = data.data.title[i];
-            })
-            // console.log(allWords);
+    //     fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications")
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //             const allWords = data.data.title[i];
+    //         })
+    //         // console.log(allWords);
             
-            const filterWords = allWords.filter((word) => data.title.word.toLowerCase().includes(searchValue));
-            console.log(filterWords);
-        });
-    
+    //         const filterWords = allWords.filter((word) => data.title.word.toLowerCase().includes(searchValue));
+    //         // console.log(filterWords);
+    //     });    
 
-//    Modal (incomplete)
-
-async function openIssueModal(id) {
-    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
-    const data = await res.json();
-    showIssueModal(data.data);    
-    }
-    
-    function showIssueModal(issue){
-        const singleCard = document.getElementById("single-card");
-singleCard.innerText = "View Details";
-
-singleCard.addEventListener("click", () => {
-   openIssueModal(issue._id);
-   document.getElementById("modal-title").innerText = issue.title;
-   document.getElementById("modal-description").innerText = issue.description;
-   document.getElementById("modal-status").innerText = issue.status;
-
-   document.getElementById("my_modal_5").showModal();
-});
-   
-}
